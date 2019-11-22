@@ -1,0 +1,31 @@
+<nav aria-label="Page navigation example" *ngIf="paginas.length > 0">
+  <ul class="pagination">
+
+    <li class="page-item" [ngClass]="paginador.first?'disabled':''">
+      <a class="page-link" aria-label="Previous" [routerLink]="['/clientes/page', 0]">
+        <span aria-hidden="true">&laquo;&laquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item" [ngClass]="paginador.first?'disabled':''">
+      <a class="page-link" aria-label="Previous" [routerLink]="['/clientes/page', paginador.number -1]">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li [ngClass]="pagina - 1 == paginador.number?'page-item active':'page-item'" *ngFor="let pagina of paginas">
+      <span class="page-link" *ngIf="pagina - 1 == paginador.number">{{pagina}}</span>
+      <a *ngIf="pagina -1 !== paginador.number" class="page-link" [routerLink]="['/clientes/page', pagina - 1]">{{pagina}}</a>
+    </li>
+    <li class="page-item" [ngClass]="paginador.last?'disabled':''">
+      <a class="page-link" aria-label="Next" [routerLink]="['/clientes/page', paginador.number + 1]">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+
+    <li class="page-item" [ngClass]="paginador.last?'disabled':''">
+      <a class="page-link" aria-label="Previous" [routerLink]="['/clientes/page', paginador.totalPages - 1]">
+        <span aria-hidden="true">&raquo;&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

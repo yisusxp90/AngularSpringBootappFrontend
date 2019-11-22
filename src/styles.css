@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+html{
+  position: relative;
+  min-height: 100%;
+}
+body{
+  margin-bottom: 60px;
+}
+
+.alert {
+  position: relative;
+  padding: .50rem 1.25rem;
+  margin-bottom: 1px;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  margin-top: 5px;
+}
+
