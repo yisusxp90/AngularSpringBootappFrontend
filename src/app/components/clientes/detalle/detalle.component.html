@@ -13,14 +13,13 @@
             <div class="row">
               <div class="col-sm">
 
-
                 <ul *ngIf="cliente" class="list-group text-dark mb-3">
                   <li class="list-group-item">{{cliente.nombre}}</li>
                   <li class="list-group-item">{{cliente.apellido}}</li>
                   <li class="list-group-item">{{cliente.email}}</li>
                   <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
+                  <li class="list-group-item">{{cliente.region.nombre}}</li>
                 </ul>
-
 
                 <div class="input-group mb-3">
                   <div class="custom-file">

@@ -28,17 +28,17 @@
       </thead>
       <tbody>
         <!--<tr *ngFor="let cliente of clientes" (click)="detalle(cliente.id)">-->
-        <tr *ngFor="let cliente of clientes" (click)="abrirModal(cliente)">
-          <td><img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
+        <tr *ngFor="let cliente of clientes">
+          <td (click)="abrirModal(cliente)"><img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
                    class="img-thumbnail rounded" alt="" style="width: 50px;" />
-              <img *ngIf="!cliente?.foto" src="http://localhost:8080/api/uploads/img/nouser.png"
+              <img *ngIf="!cliente?.foto" src="http://localhost:8080/api/uploads/img/nouser.jpg"
                    class="img-thumbnail rounded" alt="" style="width: 50px;" />
           </td>
-          <td>{{cliente.id}}</td>
-          <td>{{cliente.nombre}}</td>
-          <td>{{cliente.apellido | uppercase}}</td>
-          <td>{{cliente.email}}</td>
-          <td>{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+          <td (click)="abrirModal(cliente)">{{cliente.id}}</td>
+          <td (click)="abrirModal(cliente)">{{cliente.nombre}}</td>
+          <td (click)="abrirModal(cliente)">{{cliente.apellido | uppercase}}</td>
+          <td (click)="abrirModal(cliente)">{{cliente.email}}</td>
+          <td (click)="abrirModal(cliente)">{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
           <td>
             <div class="text-center">
               <button type="button" style="margin-right: 2%" name="buttonEditar" [routerLink]="['/clientes/', paginador.number, cliente.id]" class="btn btn-primary btn-sm">Editar</button>
