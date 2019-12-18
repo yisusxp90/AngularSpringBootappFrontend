@@ -13,17 +13,17 @@ import {AuthService} from './auth.service';
 })
 export class ClienteService {
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+  // private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private url: string = 'http://localhost:8080';
   constructor(private httpClient: HttpClient, private router: Router, private authService: AuthService) { }
 
-  private agregarAuthorizationHeader() {
+  /*private agregarAuthorizationHeader() {
       const token = this.authService.getToken();
       if (token !== null) {
         return this.httpHeaders.append('Authorization', 'Bearer ' + token);
       }
       return this.httpHeaders;
-  }
+  }*/
 
   cargarClientes(page: string): Observable<any> {
     const urlEndPoint = this.url + `/api/listar/page/${page}`;
@@ -35,58 +35,46 @@ export class ClienteService {
 
   crear(cliente: Cliente): Observable<Cliente> {
     const urlEndPoint = this.url + '/api/clientes/crear';
-    return this.httpClient.post(urlEndPoint, cliente, {headers: this.agregarAuthorizationHeader()}).pipe(map(resp => resp as Cliente),
+    return this.httpClient.post(urlEndPoint, cliente).pipe(map(resp => resp as Cliente),
       catchError(e => {
-        if (this.isUnauthorized(e)) {
-          return throwError(e);
-        }
         if (e.status === 400) {
           return throwError(e);
         }
-        console.log(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error, 'error');
+        if (e.error.mensaje) {
+          console.log(e.error.mensaje);
+        }
         return throwError(e);
       }));
   }
 
   obtenerCliente(id): Observable<Cliente> {
     const urlEndPoint = this.url + `/api/listar/${id}`;
-    return this.httpClient.get(urlEndPoint, {headers: this.agregarAuthorizationHeader()})
+    return this.httpClient.get(urlEndPoint)
       .pipe(map(resp => resp as Cliente),
         catchError(e => {
-          if (this.isUnauthorized(e)) {
-            return throwError(e);
+          if (e.status !== 401 && e.error.mensaje) {
+            this.router.navigate(['/clientes']);
+            console.log(e.error.mensaje);
           }
-          this.router.navigate(['/clientes']);
-          console.log(e.error.mensaje);
-          swal.fire('Error al editar', e.error.mensaje, 'error');
           return throwError(e);
         }));
   }
 
   actualizar(cliente: Cliente): Observable<Cliente> {
     const urlEndPoint = this.url + `/api/clientes/actualizar/${cliente.id}`;
-    return this.httpClient.put(urlEndPoint, cliente, {headers: this.agregarAuthorizationHeader()}).pipe(map(resp => resp as Cliente),
+    return this.httpClient.put(urlEndPoint, cliente).pipe(map(resp => resp as Cliente),
       catchError(e => {
-        if (this.isUnauthorized(e)) {
-          return throwError(e);
-        }
         if (e.status === 400) {
           return throwError(e);
         }
-        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       }));
   }
 
   eliminar(id): Observable<Cliente> {
     const urlEndPoint = this.url + `/api/clientes/borrar/${id}`;
-    return this.httpClient.delete<Cliente>(urlEndPoint, {headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.httpClient.delete<Cliente>(urlEndPoint).pipe(
       catchError(e => {
-        if (this.isUnauthorized(e)) {
-          return throwError(e);
-        }
-        swal.fire(e.error.mensaje, e.error.mensaje, 'error');
         return throwError(e);
       }));
   }
@@ -106,26 +94,22 @@ export class ClienteService {
       reportProgress: true,
       headers: httpHeaders
     });
-    return this.httpClient.request(req).pipe(
-      catchError(e => {
-        this.isUnauthorized(e);
-        return throwError(e);
-    }));
+    return this.httpClient.request(req);
   }
 
   getRegiones(): Observable<any> {
     const urlEndPoint = this.url + '/api/clientes/regiones';
-    return this.httpClient.get(urlEndPoint, {headers: this.agregarAuthorizationHeader()}).pipe(
+    return this.httpClient.get(urlEndPoint).pipe(
       map(resp => {
         return resp;
-      }), catchError(e => {
-        this.isUnauthorized(e);
-        return throwError(e);
       }));
   }
 
-  private isUnauthorized(e): boolean {
+  /*private isUnauthorized(e): boolean {
     if (e.status === 401) {
+      if (this.authService.isAuthenticated()) {
+        this.authService.logout(); // si el token expira
+      }
       this.router.navigate(['/login']);
       return true;
     }
@@ -135,6 +119,6 @@ export class ClienteService {
       return true;
     }
     return false;
-  }
+  }*/
 
 }

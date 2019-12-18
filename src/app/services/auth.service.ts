@@ -86,5 +86,14 @@ export class AuthService {
     this.token = null;
     this.usuario = null;
   }
+
+  hasRole(role: string): boolean {
+    if (this.usuario != null) {
+      if (this.usuario.roles.includes(role)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 

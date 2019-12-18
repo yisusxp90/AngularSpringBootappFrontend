@@ -1,12 +1,12 @@
 <app-detalle *ngIf="clienteSeleccionado" [cliente]="clienteSeleccionado"></app-detalle>
 
-<div class="card border-primary mb-3" >
+<div class="card border-primary mb-3" *ngIf="authService.hasRole('ROLE_USER')">
   <div class="card-header">Clientes</div>
   <div class="card-body text-primary">
     <h5 class="card-title">Listado de Clientes</h5>
 
     <div class="my-2 text-left">
-      <button class="btn btn-primary" [routerLink]="['/clientes/crear/', paginador?.number]">Crear</button>
+      <button class="btn btn-primary" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/clientes/crear/', paginador?.number]">Crear</button>
     </div>
 
     <br/>
@@ -23,23 +23,23 @@
           <th>Apellido</th>
           <th>Email</th>
           <th>Fecha</th>
-          <th></th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')"></th>
         </tr>
       </thead>
       <tbody>
         <!--<tr *ngFor="let cliente of clientes" (click)="detalle(cliente.id)">-->
         <tr *ngFor="let cliente of clientes">
-          <td (click)="abrirModal(cliente)"><img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)"><img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
                    class="img-thumbnail rounded" alt="" style="width: 50px;" />
               <img *ngIf="!cliente?.foto" src="http://localhost:8080/api/uploads/img/nouser.jpg"
                    class="img-thumbnail rounded" alt="" style="width: 50px;" />
           </td>
-          <td (click)="abrirModal(cliente)">{{cliente.id}}</td>
-          <td (click)="abrirModal(cliente)">{{cliente.nombre}}</td>
-          <td (click)="abrirModal(cliente)">{{cliente.apellido | uppercase}}</td>
-          <td (click)="abrirModal(cliente)">{{cliente.email}}</td>
-          <td (click)="abrirModal(cliente)">{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
-          <td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.id}}</td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.nombre}}</td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.apellido | uppercase}}</td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.email}}</td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')">
             <div class="text-center">
               <button type="button" style="margin-right: 2%" name="buttonEditar" [routerLink]="['/clientes/', paginador.number, cliente.id]" class="btn btn-primary btn-sm">Editar</button>
               <button type="button" name="buttonEliminar" (click)="eliminar(cliente)" class="btn btn-danger btn-sm">Eliminar</button>

@@ -7,7 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 import {ClienteService} from './services/cliente.service';
 import {routing} from './app.routing';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormComponent } from './components/clientes/form.component';
 import {FormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
@@ -18,6 +18,8 @@ import {MatDatepickerModule} from '@angular/material';
 import {MatMomentDateModule} from '@angular/material-moment-adapter';
 import { DetalleComponent } from './components/clientes/detalle/detalle.component';
 import { LoginComponent } from './components/usuarios/login.component';
+import {TokenInterceptor} from './components/interceptors/TokenInterceptor';
+import {AuthInterceptor} from './components/interceptors/AuthInterceptor';
 
 registerLocaleData(localeEs, 'es');
 
@@ -43,7 +45,9 @@ registerLocaleData(localeEs, 'es');
   ],
   providers: [
     ClienteService,
-    { provide: LOCALE_ID, useValue: 'es' }
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
