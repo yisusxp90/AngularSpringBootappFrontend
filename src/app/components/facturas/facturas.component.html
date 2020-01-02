@@ -1,0 +1,49 @@
+<div class="card bg-light">
+  <div class="card-header">{{titulo}}: {{factura.descripcion}}</div>
+  <div class="card-body">
+
+    <form>
+
+      <div class="form-group row" *ngIf="factura.cliente">
+        <label class="col-sm-2 col-form-label">Cliente</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" disabled name="cliente" value="{{factura.cliente.nombre}}">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Descripcion</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" name="descripcion" [(ngModel)]="factura.descripcion">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Observacion</label>
+        <div class="col-sm-6">
+          <textarea type="text" class="form-control" name="observacion" [(ngModel)]="factura.observacion"></textarea>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Añadir producto" aria-label="Number" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
+                {{producto}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <input type="submit" style="margin-right: 2%" class="btn btn-secondary" value="Crear Factura">
+          <button [routerLink]="['/clientes/page', page]" class="btn btn-primary" type="button">Volver</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

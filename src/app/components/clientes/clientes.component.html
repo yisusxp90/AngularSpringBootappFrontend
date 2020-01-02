@@ -42,7 +42,8 @@
           <td *ngIf="authService.hasRole('ROLE_ADMIN')">
             <div class="text-center">
               <button type="button" style="margin-right: 2%" name="buttonEditar" [routerLink]="['/clientes/', paginador.number, cliente.id]" class="btn btn-primary btn-sm">Editar</button>
-              <button type="button" name="buttonEliminar" (click)="eliminar(cliente)" class="btn btn-danger btn-sm">Eliminar</button>
+              <button type="button" style="margin-right: 2%" name="buttonEliminar" (click)="eliminar(cliente)" class="btn btn-danger btn-sm">Eliminar</button>
+              <button type="button" style="margin-right: 2%" name="buttonCrearFactura" [routerLink]="['/facturas/form', paginador.number, cliente.id]" class="btn btn-success btn-sm">Crear Factura</button>
             </div>
           </td>
         </tr>

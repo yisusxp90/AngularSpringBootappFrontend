@@ -22,15 +22,14 @@ export class FormComponent implements OnInit {
   ngOnInit() {
     this.cargarCliente();
     this.clienteService.getRegiones().subscribe( regiones => {
-      console.log(regiones);
       this.regiones = regiones;
     });
   }
 
   cargarCliente(): void {
       this.activatedRoute.params.subscribe(params => {
-        const id = params['id'];
-        this.page = params['page'];
+        const id = params.id;
+        this.page = params.page;
         if (id) {
           this.clienteService.obtenerCliente(id).subscribe(cliente => this.cliente = cliente);
         }

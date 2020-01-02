@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FacturaService} from "../../services/factura.service";
-import {Factura} from "../../model/Factura";
-import {ActivatedRoute} from "@angular/router";
+import {FacturaService} from '../../services/factura.service';
+import {Factura} from '../../model/Factura';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-detalle-factura',
@@ -18,7 +18,6 @@ export class DetalleFacturaComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
       const id = params.get('id');
-      this.page = params.get('page');
       this.facturaService.getFactura(Number(id)).subscribe(factura => {
         this.factura = factura;
         console.log(factura.items);

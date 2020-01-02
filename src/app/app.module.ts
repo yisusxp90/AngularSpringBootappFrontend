@@ -9,7 +9,7 @@ import {ClienteService} from './services/cliente.service';
 import {routing} from './app.routing';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormComponent } from './components/clientes/form.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {registerLocaleData} from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { PaginatorComponent } from './components/paginator/paginator.component';
@@ -21,6 +21,10 @@ import { LoginComponent } from './components/usuarios/login.component';
 import {TokenInterceptor} from './components/interceptors/TokenInterceptor';
 import {AuthInterceptor} from './components/interceptors/AuthInterceptor';
 import { DetalleFacturaComponent } from './components/facturas/detalle-factura.component';
+import { FacturasComponent } from './components/facturas/facturas.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 registerLocaleData(localeEs, 'es');
 
@@ -34,7 +38,8 @@ registerLocaleData(localeEs, 'es');
     PaginatorComponent,
     DetalleComponent,
     LoginComponent,
-    DetalleFacturaComponent
+    DetalleFacturaComponent,
+    FacturasComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,11 @@ registerLocaleData(localeEs, 'es');
     FormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
     ClienteService,
