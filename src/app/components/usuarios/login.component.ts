@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.usuario);
+    console.log(this.usuario); // TODO delete me
     if (!this.usuario.username || !this.usuario.password) {
       swal.fire('Error Login', 'Username o password vacio!', 'error');
       return;
@@ -32,10 +32,11 @@ export class LoginComponent implements OnInit {
       const usuario = this.authService.getUsuario();
       this.route.navigate(['/clientes']);
       swal.fire('Login', `Hola ${usuario.username}, has iniciado sesion` , 'success');
-    }, err => {
+    }, err => {        
       if (err.status === 400) {
         swal.fire('Error Login', 'Username o password invalido!', 'error');
-      }
+      } else
+        swal.fire('Error Login', 'Error Generico!', 'error');
     });
   }
 
