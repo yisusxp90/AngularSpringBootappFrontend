@@ -43,6 +43,34 @@
                      class="img-thumbnail rounded" alt="" />
               </div>
             </div>
+            <div class="row">
+
+              <div *ngIf="cliente?.facturas.length == 0" class="alert alert-info col-xl-6 my-4">
+                <p>No hay Facturas Registradas</p>
+              </div>
+              <table *ngIf="cliente?.facturas.length > 0" class="table table-bordered table-striped my-4">
+                <thead>
+                  <tr>
+                    <th>Folio</th>
+                    <th>Descripcion</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let factura of cliente.facturas">
+                    <td>{{factura.id}}</td>
+                    <td>{{factura.descripcion}}</td>
+                    <td>{{factura.createAt}}</td>
+                    <td>{{factura.total}}</td>
+                    <td>
+                      <button class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas', factura.id, page]">Ver</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="modal-footer">

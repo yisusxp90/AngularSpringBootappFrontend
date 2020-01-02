@@ -20,6 +20,7 @@ import { DetalleComponent } from './components/clientes/detalle/detalle.componen
 import { LoginComponent } from './components/usuarios/login.component';
 import {TokenInterceptor} from './components/interceptors/TokenInterceptor';
 import {AuthInterceptor} from './components/interceptors/AuthInterceptor';
+import { DetalleFacturaComponent } from './components/facturas/detalle-factura.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -32,7 +33,8 @@ registerLocaleData(localeEs, 'es');
     FormComponent,
     PaginatorComponent,
     DetalleComponent,
-    LoginComponent
+    LoginComponent,
+    DetalleFacturaComponent
   ],
   imports: [
     BrowserModule,

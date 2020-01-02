@@ -1,4 +1,5 @@
 import {Region} from './Region';
+import {Factura} from "./Factura";
 
 export class Cliente {
   id: number;
@@ -8,4 +9,5 @@ export class Cliente {
   email: string;
   foto: string;
   region: Region;
+  facturas: Factura[] = [];
 }

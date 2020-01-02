@@ -26,15 +26,15 @@ export class DetalleComponent implements OnInit {
               private authService: AuthService) { }
 
   ngOnInit() {
-    /*this.activatedRoute.paramMap.subscribe(params => {
-      const id = params.get('id');
+    this.activatedRoute.paramMap.subscribe(params => {
+      //const id = params.get('id');
       this.page = params.get('page');
-      if (id) {
+      /*if (id) {
         this.clienteService.obtenerCliente(id).subscribe(cliente => {
           this.cliente = cliente;
         });
-      }
-    });*/
+      }*/
+    });
   }
 
   seleccionarFoto(event) {
