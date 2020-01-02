@@ -13,7 +13,7 @@ const appRoutes: Routes = [
     {path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
     {path: 'clientes/page/:page', component: ClientesComponent, canActivate: [AuthGuard]},
     {path: 'clientes/:page/:id', component: FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-    {path: 'facturas/:id/:page', component: DetalleFacturaComponent}
+    {path: 'facturas/:id', component: DetalleFacturaComponent}
   ];
 
 export const routing = RouterModule.forRoot(appRoutes);
