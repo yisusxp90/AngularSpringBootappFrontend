@@ -27,11 +27,11 @@
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <mat-form-field class="example-full-width">
-            <input type="text" placeholder="Añadir producto" aria-label="Number" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
+          <mat-form-field>
+            <input type="text" placeholder="Añadir producto" aria-label="Productos" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="mostrarNombre">
               <mat-option *ngFor="let producto of productosFiltrados | async" [value]="producto">
-                {{producto}}
+                {{producto.nombre}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
