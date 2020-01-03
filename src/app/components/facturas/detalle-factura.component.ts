@@ -20,7 +20,6 @@ export class DetalleFacturaComponent implements OnInit {
       const id = params.get('id');
       this.facturaService.getFactura(Number(id)).subscribe(factura => {
         this.factura = factura;
-        console.log(factura.items);
       });
     });
   }

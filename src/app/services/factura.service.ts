@@ -26,4 +26,9 @@ export class FacturaService {
     const url = this.url + `/filtrar-productos/${termino}`;
     return this.httpClient.get<Producto[]>(url);
   }
+
+   create(factura: Factura): Observable<Factura> {
+     const url = this.url + `/crear`;
+     return this.httpClient.post<Factura>(url, factura);
+   }
 }
