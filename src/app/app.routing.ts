@@ -14,8 +14,8 @@ const appRoutes: Routes = [
     {path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
     {path: 'clientes/page/:page', component: ClientesComponent, canActivate: [AuthGuard]},
     {path: 'clientes/:page/:id', component: FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-    {path: 'facturas/:id', component: DetalleFacturaComponent},
-    {path: 'facturas/form/:page/:clienteId', component: FacturasComponent}
+    {path: 'facturas/:id', component: DetalleFacturaComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_USER'}},
+    {path: 'facturas/form/:page/:clienteId', component: FacturasComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
   ];
 
 export const routing = RouterModule.forRoot(appRoutes);
