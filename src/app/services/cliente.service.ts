@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import {Router} from '@angular/router';
 import {Region} from '../model/Region';
 import {AuthService} from './auth.service';
+import {Producto} from '../model/Producto';
 
 @Injectable({
   providedIn: 'root'
@@ -120,5 +121,10 @@ export class ClienteService {
     }
     return false;
   }*/
+
+  filtrarUsuarioPorNombre(termino: string): Observable<Cliente[]> {
+    const url = this.url + `/api/clientes/filtrar-clientes/${termino}`;
+    return this.httpClient.get<Cliente[]>(url);
+  }
 
 }

@@ -90,4 +90,8 @@ export class ClientesComponent implements OnInit {
     this.modalService.cerrarModal();
   }
 
+  buscarUsuario(termino: string) {
+    console.log(termino);
+  }
+
 }
