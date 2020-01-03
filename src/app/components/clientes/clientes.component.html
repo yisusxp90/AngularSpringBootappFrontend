@@ -41,9 +41,9 @@
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
           <td *ngIf="authService.hasRole('ROLE_ADMIN')">
             <div class="text-center">
-              <button type="button" style="margin-right: 2%" name="buttonEditar" [routerLink]="['/clientes/', paginador.number, cliente.id]" class="btn btn-primary btn-sm">Editar</button>
-              <button type="button" style="margin-right: 2%" name="buttonEliminar" (click)="eliminar(cliente)" class="btn btn-danger btn-sm">Eliminar</button>
-              <button type="button" style="margin-right: 2%" name="buttonCrearFactura" [routerLink]="['/facturas/form', paginador.number, cliente.id]" class="btn btn-success btn-sm">Crear Factura</button>
+              <button type="button" style="margin-right: 2%" name="buttonEditar" [routerLink]="['/clientes/', paginador.number, cliente.id]" class="btn btn-primary btn-sm"><mat-icon aria-hidden="false" aria-label="edit">edit</mat-icon></button>
+              <button type="button" style="margin-right: 2%" name="buttonEliminar" (click)="eliminar(cliente)" class="btn btn-danger btn-sm"><mat-icon aria-hidden="false" aria-label="delete_forever">delete_forever</mat-icon></button>
+              <button type="button" style="margin-right: 2%" name="buttonCrearFactura" [routerLink]="['/facturas/form', paginador.number, cliente.id]" class="btn btn-success btn-sm"><mat-icon aria-hidden="false" aria-label="create_new_folder">create_new_folder</mat-icon></button>
             </div>
           </td>
         </tr>
