@@ -16,6 +16,7 @@ export class ClientesComponent implements OnInit {
   clientes: Cliente[] = [];
   paginador: any;
   page: string;
+  termino: string = null;
   clienteSeleccionado: Cliente;
   constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -25,7 +26,7 @@ export class ClientesComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( params => {
       let page: string = params.get('page');
-      if (!page) {
+      if (!page || page === 'undefined') {
         page = '0';
       }
       this.page = page;
@@ -90,8 +91,16 @@ export class ClientesComponent implements OnInit {
     this.modalService.cerrarModal();
   }
 
-  buscarUsuario(termino: string) {
-    console.log(termino);
+  buscarUsuario() {
+    if(this.termino !== null){
+      this.clienteService.filtrarClientesPorNombre(this.termino).subscribe(clientes => {
+        this.clientes = clientes;
+        this.termino = null;
+        this.paginador = '';
+      });
+    } else {
+      this.ngOnInit();
+    }
   }
 
 }

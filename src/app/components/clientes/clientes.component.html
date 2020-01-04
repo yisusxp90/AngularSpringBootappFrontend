@@ -12,9 +12,10 @@
     <br/>
 
     <div class="input-group col-sm-3 mb-3">
-      <input #input type="text" class="form-control" placeholder="Buscar usuario...">
+      <input #input type="text" class="form-control" placeholder="Buscar usuario..."
+             [(ngModel)]="termino" name="termino">
       <div class="input-group-append">
-        <button type="button" (click)="buscarUsuario(input.value)" class="btn btn-info btn-sm"><mat-icon aria-hidden="false" aria-label="search">search</mat-icon></button>
+        <button type="button" (click)="buscarUsuario()" class="btn btn-info btn-sm"><mat-icon aria-hidden="false" aria-label="search">search</mat-icon></button>
       </div>
     </div>
 
