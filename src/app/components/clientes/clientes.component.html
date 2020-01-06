@@ -12,7 +12,7 @@
     <br/>
 
     <div class="input-group col-sm-3 mb-3">
-      <input #input type="text" class="form-control" placeholder="Buscar usuario..."
+      <input #input type="text" class="form-control" placeholder="Buscar cliente..."
              [(ngModel)]="termino" name="termino">
       <div class="input-group-append">
         <button type="button" (click)="buscarUsuario()" class="btn btn-info btn-sm"><mat-icon aria-hidden="false" aria-label="search">search</mat-icon></button>
@@ -44,7 +44,7 @@
           </td>
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.id}}</td>
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.nombre}}</td>
-          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.apellido | uppercase}}</td>
+          <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.apellido}}</td>
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.email}}</td>
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)">{{cliente.createAt | date:"EEEE dd, MMMM yyyy"}}</td>
           <td *ngIf="authService.hasRole('ROLE_ADMIN')">

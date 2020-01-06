@@ -16,14 +16,13 @@ export class AuthGuard implements CanActivate {
       const token = this.authService.getToken();
       const payload = this.authService.obtenerDatosToken(token);
       const now = new Date().getTime() / 1000;
-      if (payload.exp < now) {
-        sessionStorage.clear();
-        return false;
+      if (payload.exp >= now) {
+        return true;
       }
-      return true;
+      
+      this.authService.logout(); // si el token expira      
     }
-    this.route.navigate(['/']);
+    this.route.navigate(['/login']);
     return false;
   }
-
 }
