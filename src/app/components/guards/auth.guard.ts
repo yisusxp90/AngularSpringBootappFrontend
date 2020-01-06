@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate {
       const payload = this.authService.obtenerDatosToken(token);
       const now = new Date().getTime() / 1000;
       if (payload.exp < now) {
+        sessionStorage.clear();
         return false;
       }
       return true;
