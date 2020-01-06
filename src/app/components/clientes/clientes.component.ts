@@ -91,9 +91,9 @@ export class ClientesComponent implements OnInit {
     this.modalService.cerrarModal();
   }
 
-  buscarUsuario() {
+  buscarCliente() {
     if(this.termino !== null){
-      this.clienteService.filtrarClientesPorNombre(this.termino).subscribe(clientes => {
+      this.clienteService.filtrarClientes(this.termino).subscribe(clientes => {
         this.clientes = clientes;
         this.termino = null;
         this.paginador = '';

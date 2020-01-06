@@ -10,9 +10,25 @@
 
     <form #clienteForm="ngForm">
       <div class="form-group row">
+        <label class="col-form-label col-sm-2">DNI</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="cliente.dni" name="dni" required minlength="4" #dni="ngModel">
+          <div class="alert alert-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+            <div *ngIf="dni.errors.required">
+              El campo DNI es obligatorio.
+            </div>
+            <div *ngIf="dni.errors.minlength">
+              El campo DNI debe tener al menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <label class="col-form-label col-sm-2">Nombre</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4" #nombre="ngModel">
+          <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4"
+            #nombre="ngModel">
           <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
             <div *ngIf="nombre.errors.required">
               El campo nombre es obligatorio.
@@ -23,6 +39,7 @@
           </div>
         </div>
       </div>
+
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Apellido</label>
         <div class="col-sm-6">

@@ -3,6 +3,7 @@ import {Factura} from "./Factura";
 
 export class Cliente {
   id: number;
+  dni: string;
   nombre: string;
   apellido: string;
   createAt: string;

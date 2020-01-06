@@ -122,7 +122,7 @@ export class ClienteService {
     return false;
   }*/
 
-  filtrarClientesPorNombre(termino: string): Observable<Cliente[]> {
+  filtrarClientes(termino: string): Observable<Cliente[]> {
     const url = this.url + `/api/clientes/filtrar-clientes/${termino}`;
     return this.httpClient.get<Cliente[]>(url);
   }
