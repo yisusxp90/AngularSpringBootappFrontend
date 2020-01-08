@@ -1,0 +1,117 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0" style="margin-bottom: 10px">
+  <li *ngFor="let err of errores">
+    {{err}}
+  </li>
+</ul>
+
+<div class="card bg-light">
+  <div class="card-header">{{titulo}}</div>
+  <div class="card-body">
+
+    <form #usuarioForm="ngForm">
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2">Nombre de usuario</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username" required minlength="4" #username="ngModel">
+          <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div *ngIf="username.errors.required">
+              El campo username es obligatorio.
+            </div>
+            <div *ngIf="username.errors.minlength">
+              El campo username debe tener al menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2">Password</label>
+        <div class="col-sm-6">
+          <input type="password" class="form-control" [(ngModel)]="usuario.password" name="password" required minlength="4"
+            #password="ngModel">
+          <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div *ngIf="password.errors.required">
+              El campo password es obligatorio.
+            </div>
+            <div *ngIf="password.errors.minlength">
+              El campo password debe tener al menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2">Nombre</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required minlength="4"
+            #nombre="ngModel">
+          <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+            <div *ngIf="nombre.errors.required">
+              El campo nombre es obligatorio.
+            </div>
+            <div *ngIf="nombre.errors.minlength">
+              El campo nombre debe tener al menos 4 caracteres.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2">Apellido</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="usuario.apellido" name="apellido" required="" #apellido="ngModel">
+          <div class="alert alert-danger" *ngIf="apellido.invalid && apellido.touched">
+            <div *ngIf="apellido.errors.required">
+              El campo apellido es obligatorio.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-2">Email</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control"
+                 [(ngModel)]="usuario.email"
+                 name="email"
+                 required
+                 #email="ngModel"
+                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.touched)">
+            <div *ngIf="email.errors.required">
+              El campo email es obligatorio.
+            </div>
+            <div *ngIf="email.errors?.pattern">
+              Formato de email invalido.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row" *ngIf="authService.hasRole('ROLE_ADMIN');">
+        <label class="col-form-label col-sm-2">Activacion</label>
+        <div class="col-sm-6">
+          <input type="checkbox" class="form-control" [(ngModel)]="usuario.enabled" name="enabled" required #enabled="ngModel">
+          <div class="alert alert-danger" *ngIf="enabled.invalid && (enabled.touched)">
+            <div *ngIf="enabled.errors.required">
+              El campo activacion es obligatorio.
+            </div>
+            <div *ngIf="enabled.errors?.pattern">
+              Formato de activacion invalido.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <button [disabled]="!usuarioForm.form.valid" *ngIf="!usuario.id" class="btn btn-primary" type="submit" (click)="crear()">Crear</button>
+          <button [disabled]="!usuarioForm.form.valid" *ngIf="usuario.id" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<br/>
+<div>
+  <button *ngIf="authService.isAuthenticated()" class="btn btn-danger" type="button" [routerLink]="['/usuarios/page', page]">Volver</button>
+</div>
+

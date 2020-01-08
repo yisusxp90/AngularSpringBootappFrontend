@@ -25,7 +25,8 @@ import { FacturasComponent } from './components/facturas/facturas.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
+import { RegistroComponent } from './components/usuarios/registro.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -40,7 +41,8 @@ registerLocaleData(localeEs, 'es');
     DetalleComponent,
     LoginComponent,
     DetalleFacturaComponent,
-    FacturasComponent
+    FacturasComponent,
+    RegistroComponent
   ],
   imports: [
     BrowserModule,

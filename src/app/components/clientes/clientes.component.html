@@ -35,7 +35,6 @@
         </tr>
       </thead>
       <tbody>
-        <!--<tr *ngFor="let cliente of clientes" (click)="detalle(cliente.id)">-->
         <tr *ngFor="let cliente of clientes">
           <td *ngIf="authService.hasRole('ROLE_USER')" (click)="abrirModal(cliente)"><img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
                    class="img-thumbnail rounded" alt="" style="width: 50px;" />

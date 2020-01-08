@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Cliente} from '../model/Cliente';
+import {Usuario} from '../model/Usuario';
 import {Observable, throwError} from 'rxjs';
 import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
@@ -9,23 +9,23 @@ import {AuthService} from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class UsuarioService {
 
   // private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private url: string = 'http://localhost:8080';
   constructor(private httpClient: HttpClient, private router: Router, private authService: AuthService) { }
 
-  cargarClientes(page: string): Observable<any> {
-    const urlEndPoint = this.url + `/api/listar/page/${page}`;
+  cargarUsuarios(page: string): Observable<any> {
+    const urlEndPoint = this.url + `/api/usuarios/page/${page}`;
     return this.httpClient.get(urlEndPoint).pipe(
       map(resp => {
       return resp;
     }));
   }
 
-  crear(cliente: Cliente): Observable<Cliente> {
-    const urlEndPoint = this.url + '/api/clientes/crear';
-    return this.httpClient.post(urlEndPoint, cliente).pipe(map(resp => resp as Cliente),
+  crear(usuario: Usuario): Observable<Usuario> {
+    const urlEndPoint = this.url + '/api/usuario/crear';
+    return this.httpClient.post(urlEndPoint, usuario).pipe(map(resp => resp as Usuario),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -37,22 +37,22 @@ export class ClienteService {
       }));
   }
 
-  obtenerCliente(id): Observable<Cliente> {
-    const urlEndPoint = this.url + `/api/listar/${id}`;
+  obtenerUsuario(id): Observable<Usuario> {
+    const urlEndPoint = this.url + `/api/usuario/${id}`;
     return this.httpClient.get(urlEndPoint)
-      .pipe(map(resp => resp as Cliente),
+      .pipe(map(resp => resp as Usuario),
         catchError(e => {
           if (e.status !== 401 && e.error.mensaje) {
-            this.router.navigate(['/clientes']);
+            this.router.navigate(['/usuarios']);
             console.log(e.error.mensaje);
           }
           return throwError(e);
         }));
   }
 
-  actualizar(cliente: Cliente): Observable<Cliente> {
-    const urlEndPoint = this.url + `/api/clientes/actualizar/${cliente.id}`;
-    return this.httpClient.put(urlEndPoint, cliente).pipe(map(resp => resp as Cliente),
+  actualizar(usuario: Usuario): Observable<Usuario> {
+    const urlEndPoint = this.url + `/api/usuario/actualizar/${usuario.id}`;
+    return this.httpClient.put(urlEndPoint, usuario).pipe(map(resp => resp as Usuario),
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
@@ -61,14 +61,14 @@ export class ClienteService {
       }));
   }
 
-  eliminar(id): Observable<Cliente> {
-    const urlEndPoint = this.url + `/api/clientes/borrar/${id}`;
-    return this.httpClient.delete<Cliente>(urlEndPoint).pipe(
+  eliminar(id): Observable<Usuario> {
+    const urlEndPoint = this.url + `/api/usuario/borrar/${id}`;
+    return this.httpClient.delete<Usuario>(urlEndPoint).pipe(
       catchError(e => {
         return throwError(e);
       }));
   }
-
+/* 
   subirFoto(archivo: File, id) {
     const urlEndPoint = this.url + '/api/clientes/upload';
     const formData = new FormData();
@@ -98,6 +98,6 @@ export class ClienteService {
   filtrarClientes(termino: string): Observable<Cliente[]> {
     const url = this.url + `/api/clientes/filtrar-clientes/${termino}`;
     return this.httpClient.get<Cliente[]>(url);
-  }
+  } */
 
 }
