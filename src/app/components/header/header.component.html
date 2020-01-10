@@ -23,11 +23,12 @@
         <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{authService.getUsuario().username}}
         </a>
-
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">         
+          <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="dropdown-item" [routerLink]="['/usuarios']" type="button">Admin Usuarios</button>          
           <button class="dropdown-item" (click)="logout()" type="submit">Sign Out</button>
         </div>
       </li>
+      &nbsp;&nbsp;
     </ul>
 
   </div>

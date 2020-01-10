@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
 
   public autor: any = {
-    nombre: 'Jesus',
-    apellido: 'Melendez'
+    nombre1: 'Jesus',
+    apellido1: 'Melendez',
+    nombre2: 'Ariel',
+    apellido2: 'Saidel'
   };
   constructor() { }
 

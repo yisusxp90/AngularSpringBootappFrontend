@@ -66,7 +66,7 @@ export class ClientesComponent implements OnInit {
               this.clientes = this.clientes.filter(cl => cl !== cliente);
               swal.fire(
                 'Cliente eliminado!',
-                'Cliente eleminado exitosamente.',
+                'Cliente eliminado exitosamente.',
                 'success'
               );
               this.ngOnInit();

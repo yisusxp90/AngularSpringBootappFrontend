@@ -29,10 +29,7 @@ export class UsuarioService {
       catchError(e => {
         if (e.status === 400) {
           return throwError(e);
-        }
-        if (e.error.mensaje) {
-          console.log(e.error.mensaje);
-        }
+        }        
         return throwError(e);
       }));
   }
@@ -69,24 +66,12 @@ export class UsuarioService {
       }));
   }
 /* 
-  subirFoto(archivo: File, id) {
-    const urlEndPoint = this.url + '/api/clientes/upload';
-    const formData = new FormData();
-    formData.append('archivo', archivo);
-    formData.append('id', id);
-    let httpHeaders = new HttpHeaders();
-    const token = this.authService.getToken();
-    if (token !== null) {
-      httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
-    }
 
-    const req = new HttpRequest('POST', urlEndPoint, formData, {
-      reportProgress: true,
-      headers: httpHeaders
-    });
-    return this.httpClient.request(req);
-  }
-
+filtrarUsuarios(termino: string): Observable<Usuario[]> {
+  const url = this.url + `/api/usuarios/filtrar-usuarios/${termino}`;
+  return this.httpClient.get<Usuario[]>(url);
+} 
+ 
   getRegiones(): Observable<any> {
     const urlEndPoint = this.url + '/api/clientes/regiones';
     return this.httpClient.get(urlEndPoint).pipe(
@@ -94,10 +79,6 @@ export class UsuarioService {
         return resp;
       }));
   }
-
-  filtrarClientes(termino: string): Observable<Cliente[]> {
-    const url = this.url + `/api/clientes/filtrar-clientes/${termino}`;
-    return this.httpClient.get<Cliente[]>(url);
-  } */
+*/
 
 }

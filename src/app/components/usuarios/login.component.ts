@@ -35,9 +35,8 @@ export class LoginComponent implements OnInit {
       if (err.status === 400) {
         swal.fire('Error Login', 'Username o password invalido!', 'error');
       } else {
-        swal.fire('Error Login', 'Error Generico!', 'error');
+        swal.fire('Error Login', 'Error General', 'error');
       }
     });
   }
-
 }

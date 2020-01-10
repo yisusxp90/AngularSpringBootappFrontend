@@ -27,6 +27,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { RegistroComponent } from './components/usuarios/registro.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -42,7 +43,8 @@ registerLocaleData(localeEs, 'es');
     LoginComponent,
     DetalleFacturaComponent,
     FacturasComponent,
-    RegistroComponent
+    RegistroComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,

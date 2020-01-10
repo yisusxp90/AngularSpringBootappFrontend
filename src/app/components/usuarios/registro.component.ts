@@ -42,17 +42,19 @@ export class RegistroComponent implements OnInit {
 
   public crear(): void {
     this.usuarioService.crear(this.usuario).subscribe((resp: any) => {
-      swal.fire('Usuario Registrado', `El usuario ${resp.usuario.nombre} ha sido registrado exitosamente!`, 'success');
+      swal.fire('Usuario Registrado', `El usuario ${resp.usuario.username} ha sido registrado exitosamente!`, 'success');
     }, err => {
       this.errores = err.error.errors;
     });
+    
     this.usuario.apellido = this.usuario.nombre = this.usuario.password = this.usuario.email = this.usuario.username = null;
   }
 
   public actualizar(): void {
     this.usuario.roles = null;
+    console.log(this.usuario.enabled);
     this.usuarioService.actualizar(this.usuario).subscribe((resp: any) => {
-      swal.fire('Usuario Actualizado', `El usuario ${resp.usuario.nombre} ha sido actualizado exitosamente!`, 'success');
+      swal.fire('Usuario Actualizado', `El usuario ${resp.usuario.username} ha sido actualizado exitosamente!`, 'success');
       this.router.navigate(['/usuarios/page/', this.page]);
     }, err => {
       this.errores = err.error.errors;
