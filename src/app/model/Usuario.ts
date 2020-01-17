@@ -1,3 +1,5 @@
+import { Rol } from './Rol';
+
 export class Usuario {
 
   id: number;
@@ -7,6 +9,5 @@ export class Usuario {
   apellido: string;
   email: string;
   enabled: boolean;
-  roles: string[] = [];
-
+  roles: Rol[] = [];
 }

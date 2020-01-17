@@ -25,7 +25,7 @@
       <thead class="thead-dark">
         <tr>
           <th>Nombre de usuario</th>
-          <th>Activacion</th>
+         <!--  <th>Activacion</th> -->
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
@@ -35,8 +35,8 @@
       <tbody>
         <tr *ngFor="let usuario of usuarios">         
           <td>{{usuario.username}}</td>          
-          <td *ngIf="usuario.enabled; else notEnabled">activado</td>
-            <ng-template #notEnabled><td>desactivado</td></ng-template>
+       <!--    <td *ngIf="usuario.enabled; else notEnabled">activado</td>
+            <ng-template #notEnabled><td>desactivado</td></ng-template> -->
           <td>{{usuario.nombre}}</td>
           <td>{{usuario.apellido}}</td>
           <td>{{usuario.email}}</td>

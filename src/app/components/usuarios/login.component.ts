@@ -29,10 +29,14 @@ export class LoginComponent implements OnInit {
       this.authService.guardarUsuario(resp.access_token);
       this.authService.guardarToken(resp.access_token);
       const usuario = this.authService.getUsuario();
-      this.route.navigate(['/clientes']);
+   // console.log(JSON.stringify(usuario.roles));
+      if (usuario.roles.some(r => r.nombre == 'ROLE_ADMIN'))
+        this.route.navigate(['/usuarios']);
+      else
+        this.route.navigate(['/clientes']);
       swal.fire('Login', `Hola ${usuario.username}, has iniciado sesion` , 'success');
     }, err => {
-      if (err.status === 400) {
+        if (err.status === 400 || err.status === 401) {
         swal.fire('Error Login', 'Username o password invalido!', 'error');
       } else {
         swal.fire('Error Login', 'Error General', 'error');

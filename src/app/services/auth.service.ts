@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Usuario} from '../model/Usuario';
+import { Rol } from '../model/Rol';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   private usuario: Usuario;
   private token: string;
-  private url: string = 'http://localhost:8080';
+  private url: string = 'http://localhost:8080';  
 
   constructor(private httpClient: HttpClient) { }
 
@@ -46,7 +47,7 @@ export class AuthService {
     params.set('username', usuario.username);
     params.set('password', usuario.password);
     //console.log(params.toString());
-    return this.httpClient.post(url, params.toString(), {headers: httpHeaders});
+    return this.httpClient.post(url, params.toString(), { headers: httpHeaders });
   }
 
   guardarUsuario(accessToken: string) {
@@ -56,8 +57,14 @@ export class AuthService {
     this.usuario.username = payload.user_name;
     this.usuario.nombre = payload.nombre;
     this.usuario.apellido = payload.apellido;
-    this.usuario.email = payload.email;
-    this.usuario.roles = payload.authorities;
+    this.usuario.email = payload.email;     
+    
+    for (var i = 0, l = payload.authorities.length; i < l; i++) {
+      let rol = new Rol();
+      rol.nombre = payload.authorities[i];
+      this.usuario.roles.push(rol);
+    }
+    
     sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
   }
 
@@ -76,7 +83,7 @@ export class AuthService {
   isAuthenticated(): boolean {
     const payload = this.obtenerDatosToken(this.getToken());
     if (payload != null && payload.user_name && payload.user_name.length > 0) {
-      return true;
+      return true; 
     }
     return false;
   }
@@ -87,13 +94,10 @@ export class AuthService {
     this.usuario = null;
   }
 
-  hasRole(role: string): boolean {
-    if (this.usuario != null) {
-      if (this.usuario.roles.includes(role)) {
-        return true;
-      }
+  hasRole(rol: string): boolean {
+    if (this.usuario != null && this.usuario.roles != null) {
+      return this.usuario.roles.some(r => r.nombre === rol); 
     }
     return false;
   }
 }
-

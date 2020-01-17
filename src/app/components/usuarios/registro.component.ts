@@ -1,10 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Usuario} from '../../model/Usuario';
-import {UsuarioService} from '../../services/usuario.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { RolService } from '../../services/rol.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
+import { Rol } from 'src/app/model/Rol';
 
 @Component({
   selector: 'app-registro',
@@ -16,16 +18,17 @@ export class RegistroComponent implements OnInit {
   private usuario: Usuario = new Usuario();
   private titulo: string = 'Crear Usuario';
   private errores: string[];
+  private roles: Rol[];
   page: string;
-  constructor(private authService: AuthService,private usuarioService: UsuarioService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private authService: AuthService,
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private rolService: RolService) { }
 
   ngOnInit() {    
+    this.cargarRoles();
     this.cargarUsuario();
-    // TODO cargar roles y setear el del user
-
-   /*  this.usuarioService.getRegiones().subscribe( regiones => {
-      this.regiones = regiones;
-    }); */
   }
 
   cargarUsuario(): void {
@@ -50,9 +53,17 @@ export class RegistroComponent implements OnInit {
     this.usuario.apellido = this.usuario.nombre = this.usuario.password = this.usuario.email = this.usuario.username = null;
   }
 
-  public actualizar(): void {
-    this.usuario.roles = null;
-    console.log(this.usuario.enabled);
+  public actualizar(): void {   
+    this.roles.filter(r => r.checked !== null);
+    let roles = this.roles; 
+    let usrRoles: Rol[] = [];
+    usrRoles.push(...this.usuario.roles); // clone
+
+    this.procesaCheckboxes(roles, usrRoles);
+   
+    this.usuario.roles = usrRoles;
+    // console.log(JSON.stringify(userRoles));   
+
     this.usuarioService.actualizar(this.usuario).subscribe((resp: any) => {
       swal.fire('Usuario Actualizado', `El usuario ${resp.usuario.username} ha sido actualizado exitosamente!`, 'success');
       this.router.navigate(['/usuarios/page/', this.page]);
@@ -61,14 +72,28 @@ export class RegistroComponent implements OnInit {
     });
   }
 
- /*  compararRegion(o1: Region, o2: Region) {
-    if (o1 && o2) {
-      return o1.id === o2.id;
+  private procesaCheckboxes(roles: Rol[], usrRoles: Rol[]) {
+    for (let i = 0; i < roles.length; i++) {
+      let found = false;
+      const rol = roles[i];
+      for (let j = 0; j < usrRoles.length; j++) {
+        if (usrRoles[j].id === rol.id) {
+          found = true;
+          if (rol.checked === false) {
+            usrRoles.splice(usrRoles.findIndex(r => r.id === rol.id), 1); // delete
+          }
+        }
+      }
+      if (found === false && rol.checked === true)
+        usrRoles.push(rol);
     }
-    if (o1 === undefined && o2 === undefined) {
-      return true;
-    }
-    return false;
-  } */
+  }
 
+  cargarRoles(): void {
+    this.rolService.cargarRoles().subscribe(roles => this.roles = roles);
+  }
+
+  checked(id: number): boolean {
+   return this.usuario.roles.some(r => r.id === id);
+  }
 }

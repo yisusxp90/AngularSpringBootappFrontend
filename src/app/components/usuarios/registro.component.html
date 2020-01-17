@@ -12,7 +12,8 @@
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Nombre de usuario</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username" required minlength="4" #username="ngModel">
+          <input type="text" class="form-control" [(ngModel)]="usuario.username" name="username" required minlength="4" 
+            #username="ngModel">
           <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
             <div *ngIf="username.errors.required">
               El campo username es obligatorio.
@@ -86,10 +87,19 @@
           </div>
         </div>
       </div>
-      <div class="form-group row" *ngIf="authService.hasRole('ROLE_ADMIN');">
+  <!--     <div class="form-group row" *ngIf="authService.hasRole('ROLE_ADMIN');">
         <label class="col-form-label col-sm-2">Activacion</label>
         <div class="col-sm-6">
           <input type="checkbox" class="form-control" [(ngModel)]="usuario.enabled" name="enabled" #enabled="ngModel">
+        </div>
+      </div> -->
+      <div *ngIf="authService.hasRole('ROLE_ADMIN');">Roles
+        <br/>No colocar ningun rol implica desactivar al usuario
+        <div class="form-group row" *ngFor="let rol of roles" >
+          <label class="col-form-label col-sm-2" >{{ rol.nombre }}</label>
+          <div class="col-sm-6" >
+            <input type="checkbox" class="form-control" name="rol" [checked]="checked(rol.id)" [(ngModel)]="rol.checked" [value]="rol.id">
+          </div>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import { Observable } from 'rxjs';
 import {AuthService} from '../../services/auth.service';
 import swal from 'sweetalert2';
+import { Rol } from 'src/app/model/Rol';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,7 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    const role = next.data['role'] as string;
-    console.log(role);
+    const role = next.data['role'] as string;    
     if (this.authService.hasRole(role)) {
       return true;
     }
