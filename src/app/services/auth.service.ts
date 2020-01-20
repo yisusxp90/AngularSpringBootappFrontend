@@ -52,20 +52,21 @@ export class AuthService {
 
   guardarUsuario(accessToken: string) {
     const payload = this.obtenerDatosToken(accessToken);
-
-    this.usuario = new Usuario();
-    this.usuario.username = payload.user_name;
-    this.usuario.nombre = payload.nombre;
-    this.usuario.apellido = payload.apellido;
-    this.usuario.email = payload.email;     
+    let usuario = new Usuario();
+    usuario.username = payload.user_name;
+    usuario.nombre = payload.nombre;
+    usuario.apellido = payload.apellido;
+    usuario.email = payload.email;     
     
-    for (var i = 0, l = payload.authorities.length; i < l; i++) {
-      let rol = new Rol();
-      rol.nombre = payload.authorities[i];
-      this.usuario.roles.push(rol);
-    }
+    if (payload.authorities)
+      for (var i = 0, l = payload.authorities.length; i < l; i++) {
+        let rol = new Rol();
+        rol.nombre = payload.authorities[i];
+        usuario.roles.push(rol);
+      }
     
-    sessionStorage.setItem('usuario', JSON.stringify(this.usuario));
+    sessionStorage.setItem('usuario', JSON.stringify(usuario));
+    this.usuario = usuario;
   }
 
   guardarToken(accessToken: string) {

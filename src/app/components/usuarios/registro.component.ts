@@ -27,8 +27,10 @@ export class RegistroComponent implements OnInit {
     private rolService: RolService) { }
 
   ngOnInit() {    
-    this.cargarRoles();
-    this.cargarUsuario();
+    if (this.authService.isAuthenticated()) {
+      this.cargarRoles();
+      this.cargarUsuario();
+    }
   }
 
   cargarUsuario(): void {
@@ -36,7 +38,9 @@ export class RegistroComponent implements OnInit {
       const id = params.id;
       this.page = params.page;
       if (id) {
-        this.usuarioService.obtenerUsuario(id).subscribe(usuario => this.usuario = usuario);
+        this.usuarioService.obtenerUsuario(id).subscribe(usuario => { this.usuario = usuario; this.usuario.password = undefined; } );
+        
+        console.log(JSON.stringify(this.usuario));
       }
     });
   }
@@ -59,7 +63,7 @@ export class RegistroComponent implements OnInit {
     let usrRoles: Rol[] = [];
     usrRoles.push(...this.usuario.roles); // clone
 
-    this.procesaCheckboxes(roles, usrRoles);
+    this.procesaRoles(roles, usrRoles);
    
     this.usuario.roles = usrRoles;
     // console.log(JSON.stringify(userRoles));   
@@ -72,7 +76,7 @@ export class RegistroComponent implements OnInit {
     });
   }
 
-  private procesaCheckboxes(roles: Rol[], usrRoles: Rol[]) {
+  private procesaRoles(roles: Rol[], usrRoles: Rol[]) {
     for (let i = 0; i < roles.length; i++) {
       let found = false;
       const rol = roles[i];
