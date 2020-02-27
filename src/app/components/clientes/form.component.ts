@@ -12,9 +12,9 @@ import {Region} from '../../model/Region';
 })
 export class FormComponent implements OnInit {
 
-  private cliente: Cliente = new Cliente();
-  private titulo: string = 'Crear Cliente';
-  private errores: string[];
+  cliente: Cliente = new Cliente();
+  titulo: string = 'Crear Cliente';
+  errores: string[];
   regiones: Region[];
   page: string;
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -25,7 +25,7 @@ export class FormComponent implements OnInit {
       this.regiones = regiones;
     });
   }
-
+  
   cargarCliente(): void {
       this.activatedRoute.params.subscribe(params => {
         const id = params.id;

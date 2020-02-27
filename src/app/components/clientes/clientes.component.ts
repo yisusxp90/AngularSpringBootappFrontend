@@ -18,10 +18,12 @@ export class ClientesComponent implements OnInit {
   page: string;
   termino: string = null;
   clienteSeleccionado: Cliente;
+  authService: AuthService;
+  
   constructor(private clienteService: ClienteService, private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private modalService: ModalService,
-              private authService: AuthService) { }
+    private router: Router, private modalService: ModalService, authService: AuthService) {       
+    this.authService = authService;
+    }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( params => {

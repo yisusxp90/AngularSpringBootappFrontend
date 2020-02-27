@@ -5,7 +5,6 @@ import { RolService } from '../../services/rol.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import swal from 'sweetalert2';
-import { NgForm } from '@angular/forms';
 import { Rol } from 'src/app/model/Rol';
 
 @Component({
@@ -15,16 +14,18 @@ import { Rol } from 'src/app/model/Rol';
 })
 export class RegistroComponent implements OnInit {
 
-  private usuario: Usuario = new Usuario();
-  private titulo: string = 'Crear Usuario';
-  private errores: string[];
+  usuario: Usuario = new Usuario();
+  tituloAccion: string;
+  errores: string[];
   private roles: Rol[];
   page: string;
-  constructor(private authService: AuthService,
+  authService: AuthService;
+
+  constructor( authService: AuthService,
     private usuarioService: UsuarioService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private rolService: RolService) { }
+    private rolService: RolService ) { this.authService = authService }
 
   ngOnInit() {    
     if (this.authService.isAuthenticated()) {
@@ -33,19 +34,22 @@ export class RegistroComponent implements OnInit {
     }
   }
 
-  cargarUsuario(): void {
+  cargarUsuario(): void {    
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       this.page = params.page;
+      
       if (id) {
+        this.tituloAccion = 'Modificar';
         this.usuarioService.obtenerUsuario(id).subscribe(usuario => { this.usuario = usuario; this.usuario.password = undefined; } );
         
-        console.log(JSON.stringify(this.usuario));
-      }
+        // console.log(JSON.stringify(this.usuario));
+      } 
+      else this.tituloAccion = 'Crear';
     });
   }
 
-  registro(): void { }
+  registro(): void {}
 
   public crear(): void {
     this.usuarioService.crear(this.usuario).subscribe((resp: any) => {

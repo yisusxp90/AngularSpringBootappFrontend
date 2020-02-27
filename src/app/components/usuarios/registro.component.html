@@ -5,7 +5,7 @@
 </ul>
 
 <div class="card bg-light">
-  <div class="card-header">{{titulo}}</div>
+  <div class="card-header">{{tituloAccion}} Usuario</div>
   <div class="card-body">
 
     <form #usuarioForm="ngForm">
@@ -105,8 +105,8 @@
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <button [disabled]="!usuarioForm.form.valid" *ngIf="!usuario.id" class="btn btn-primary" type="submit" (click)="crear()">Crear</button>
-          <button [disabled]="!usuarioForm.form.valid" *ngIf="usuario.id" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+          <button [disabled]="!usuarioForm.form.valid" *ngIf="!usuario.id" class="btn btn-primary" type="submit" (click)="crear()">{{tituloAccion}}</button>
+          <button [disabled]="!usuarioForm.form.valid" *ngIf="usuario.id" class="btn btn-primary" type="submit" (click)="actualizar()">{{tituloAccion}}</button>
         </div>
       </div>
     </form>

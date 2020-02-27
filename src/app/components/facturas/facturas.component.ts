@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
 import {flatMap, map} from 'rxjs/operators';
 import {FacturaService} from '../../services/factura.service';
 import {Producto} from '../../model/Producto';
-import {MatAutocompleteSelectedEvent} from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import {ItemFactura} from '../../model/ItemFactura';
 import swal from "sweetalert2";
 
@@ -21,7 +21,7 @@ export class FacturasComponent implements OnInit {
   titulo: string = 'Nueva Factura';
   factura: Factura = new Factura();
   page: string;
-  private errores: string[];
+  errores: string[];
   autocompleteControl = new FormControl();
   productosFiltrados: Observable<Producto[]>;
 

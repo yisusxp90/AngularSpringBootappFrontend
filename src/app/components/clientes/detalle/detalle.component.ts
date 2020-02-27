@@ -22,11 +22,13 @@ export class DetalleComponent implements OnInit {
   titulo: string = 'Detalle del Cliente';
   private imagenSeleccionada: File;
   progreso: number = 0;
+  modalService: ModalService;
+
   constructor(private clienteService: ClienteService,
               private activatedRoute: ActivatedRoute,
-              private modalService: ModalService,
+              modalService: ModalService,
               private authService: AuthService,
-              private facturaService: FacturaService) { }
+              private facturaService: FacturaService) { this.modalService = modalService }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {

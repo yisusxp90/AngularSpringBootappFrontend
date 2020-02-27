@@ -9,8 +9,12 @@ import swal from 'sweetalert2';
   styles: []
 })
 export class HeaderComponent implements OnInit {
+  authService: AuthService;
 
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(authService: AuthService, private route: Router)
+  {
+    this.authService = authService;
+  }
 
   ngOnInit() {
   }

@@ -18,10 +18,12 @@ export class UsuariosComponent implements OnInit {
   page: string;
   termino: string = null;
   usuarioSeleccionado: Usuario;
+  authService: AuthService;
+
   constructor(private usuarioService: UsuarioService, private activatedRoute: ActivatedRoute,
               private router: Router,
               private modalService: ModalService,
-              private authService: AuthService) { }
+              authService: AuthService) { this.authService = authService }
 
   ngOnInit() {
     this.listar();    
