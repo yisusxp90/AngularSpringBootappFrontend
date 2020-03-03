@@ -22,22 +22,6 @@
                   <li class="list-group-item">{{cliente.region.nombre}}</li>
                 </ul>
 
-                <div class="input-group mb-3" *ngIf="authService.hasRole('ROLE_ADMIN')">
-                  <div class="custom-file">
-                    <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                    <label class="custom-file-label" for="inputGroupFile04">Buscar Foto</label>
-                  </div>
-                  <div class="input-group-append">
-                    <button [disabled]="!imagenSeleccionada" (click)="subirFoto()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
-                  </div>
-                </div>
-
-                <div class="progress" *ngIf="progreso > 0" style="height: 20px;">
-                  <div class="progress-bar" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
-                    {{progreso}}%
-                  </div>
-                </div>
-
               </div>
               <div class="col-sm">
                 <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
@@ -85,50 +69,3 @@
   </div>
 
 </div>
-<!--<div class="card bg-dark text-white mb-3">
-  <div class="card-header">{{titulo}}</div>
-  <div class="card-body">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-
-
-          <ul *ngIf="cliente" class="list-group text-dark mb-3">
-            <li class="list-group-item">{{cliente.nombre}}</li>
-            <li class="list-group-item">{{cliente.apellido}}</li>
-            <li class="list-group-item">{{cliente.email}}</li>
-            <li class="list-group-item">{{cliente.createAt | date:"fullDate"}}</li>
-          </ul>
-
-
-          <div class="input-group mb-3">
-            <div class="custom-file">
-              <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-              <label class="custom-file-label" for="inputGroupFile04">Buscar Foto</label>
-            </div>
-            <div class="input-group-append">
-              <button [disabled]="!imagenSeleccionada" (click)="subirFoto()" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
-            </div>
-          </div>
-
-          <div class="progress" *ngIf="progreso > 0" style="height: 20px;">
-            <div class="progress-bar" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}" aria-valuemin="0" aria-valuemax="100">
-              {{progreso}}%
-            </div>
-          </div>
-
-        </div>
-        <div class="col-sm">
-          <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}"
-               class="img-thumbnail rounded" alt="" />
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div>
-  <button class="btn btn-danger" type="button" [routerLink]="['/clientes/page', page]">Volver</button>
-</div>-->

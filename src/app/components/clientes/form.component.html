@@ -5,13 +5,17 @@
 </ul>
 
 <div class="card bg-light">
-  <div class="card-header">{{titulo}}</div>
+  <div class="card-header">{{tituloAccion}} Cliente</div>
   <div class="card-body">
 
     <form #clienteForm="ngForm">
+      
+      <div class="container">
+        <div class="row">
+      <div class="col">
       <div class="form-group row">
         <label class="col-form-label col-sm-2">DNI</label>
-        <div class="col-sm-6">
+        <div class="col-10">
           <input type="text" class="form-control" [(ngModel)]="cliente.dni" name="dni" required minlength="4" #dni="ngModel">
           <div class="alert alert-danger" *ngIf="dni.invalid && (dni.dirty || dni.touched)">
             <div *ngIf="dni.errors.required">
@@ -26,7 +30,7 @@
 
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Nombre</label>
-        <div class="col-sm-6">
+        <div class="col-10">
           <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4"
             #nombre="ngModel">
           <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
@@ -42,7 +46,7 @@
 
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Apellido</label>
-        <div class="col-sm-6">
+        <div class="col-10">
           <input type="text" class="form-control" [(ngModel)]="cliente.apellido" name="apellido" required="" #apellido="ngModel">
           <div class="alert alert-danger" *ngIf="apellido.invalid && apellido.touched">
             <div *ngIf="apellido.errors.required">
@@ -51,9 +55,10 @@
           </div>
         </div>
       </div>
+
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Email</label>
-        <div class="col-sm-6">
+        <div class="col-10">
           <input type="text" class="form-control"
                  [(ngModel)]="cliente.email"
                  name="email"
@@ -73,7 +78,7 @@
 
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Fecha registro</label>
-        <div class="col-sm-6">
+        <div class="col-10">
           <input [matDatepicker]="myDatepicker" class="form-control" style="display: inline; width: 200px"
                  [(ngModel)]="cliente.createAt" name="createAt" required="" #createAt="ngModel">
           <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
@@ -83,9 +88,8 @@
 
       <div class="form-group row">
         <label class="col-form-label col-sm-2">Region</label>
-        <div class="col-sm-6">
-          <select class="form-control" style="width: 400px"
-                  [compareWith]="compararRegion"
+        <div class="col-10">
+          <select class="form-control" [compareWith]="compararRegion"
                  [(ngModel)]="cliente.region" name="region" required="" #createAt="ngModel">
             <option [ngValue]="undefined">---- Seleccionar region ----</option>
             <option  *ngFor="let region of regiones" [ngValue]="region">{{region.nombre}}</option>
@@ -94,11 +98,45 @@
       </div>
 
       <div class="form-group row">
-        <div class="col-sm-6">
-          <button [disabled]="!clienteForm.form.valid" *ngIf="!cliente.id" class="btn btn-primary" type="submit" (click)="crear()">Crear</button>
-          <button [disabled]="!clienteForm.form.valid" *ngIf="cliente.id" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
+        <div class="col-10">
+          <button [disabled]="!clienteForm.form.valid" *ngIf="!cliente.id" class="btn btn-primary" type="submit"
+            (click)="crear()">{{tituloAccion}}</button>
+          <button [disabled]="!clienteForm.form.valid" *ngIf="cliente.id" class="btn btn-primary" type="submit"
+            (click)="actualizar()">{{tituloAccion}}</button>
         </div>
       </div>
+      </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <label class="custom-file-label" for="inputGroupFile04">Buscar Foto</label>
+          <input (change)="seleccionarFoto($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm">
+          <button [disabled]="!imagenSeleccionada" (click)="subirFoto()" class="btn btn-primary" type="button" id="inputGroupFileAddon04">Subir</button>
+        </div>
+      </div>
+      
+      <div class="progress" *ngIf="progreso > 0" style="height: 20px;">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{width:progreso+'%'}" attr.aria-valuenow="{{progreso}}"
+          aria-valuemin="0" aria-valuemax="100">
+          {{progreso}}%
+        </div>
+      </div>
+
+      <div class="col-6">
+          <div>
+            <img *ngIf="cliente?.foto" src="http://localhost:8080/api/uploads/img/{{cliente.foto}}" class="img-thumbnail rounded"
+              alt="" />
+          </div>        
+      </div>
+  </div>
+  </div>
+</div>
+      
     </form>
   </div>
 </div>
